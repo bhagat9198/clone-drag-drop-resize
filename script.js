@@ -2,8 +2,6 @@ let diffX = null;
 let diffY = null;
 const ALL_ELEMENTS = [];
 
-const both_ends_HTML = document.querySelector("#both_ends");
-
 function onDragStart(event) {
   event.dataTransfer.setData("text", event.target.id);
   const draggableElement = document.getElementById(event.target.id);
@@ -58,7 +56,7 @@ function onDrop(event) {
   draggableElement.style.top = relativeY + "px";
 
   event.target.appendChild(draggableElement);
-  console.log(draggableElement.offsetHeight);
+  // console.log(draggableElement.offsetHeight);
   event.dataTransfer.clearData();
   ALL_ELEMENTS.push({
     id: id,
@@ -68,7 +66,7 @@ function onDrop(event) {
   })
 }
 
-document.getElementById("both_ends").style.resize = "both";
+// document.getElementById("both_ends").style.resize = "both";
 
 let COUNTER_EL = 0;
 
@@ -100,13 +98,16 @@ function properties(event) {
 }
 
 function duplicate(event) {
-  let original = document.getElementById(event.target.id);
-  // if(original.nodeName === "IMG" ) {
-  //   console.log(true);
-  //   original = original.parentElement;
-  //   console.log(original);
-  // }
-  // console.log(original);
+  let original, dupId;
+  if(event.target.classList.contains('main_line') || event.target.classList.contains('top_left_line')) {
+      original = event.target.parentNode;
+      dupId = original.id;
+  } else {
+    dupId = event.target.id;
+  }
+
+  original = document.getElementById(dupId);
+
   const clone = original.cloneNode(true);
   let elId = `${event.target.id}_${COUNTER_EL}`;
   ++COUNTER_EL;
@@ -119,20 +120,35 @@ function duplicate(event) {
   makeResizableDiv(`#${clone.id}`)
 }
 
+const both_ends_div_HTML = document.querySelector("#both_ends_div");
+both_ends_div_HTML.addEventListener("click", duplicate);
+
+const left_end_HTML = document.querySelector('#left_end');
+left_end_HTML.addEventListener("click", duplicate);
+
+const right_end_HTML = document.querySelector('#right_end');
+right_end_HTML.addEventListener("click", duplicate);
+
+const both_ends_HTML = document.querySelector('#both_ends');
 both_ends_HTML.addEventListener("click", duplicate);
 
-const both_end_HTML = document.querySelector('#both_end');
+const both_ends_vertical_HTML = document.querySelector('#both_ends_vertical');
+both_ends_vertical_HTML.addEventListener("click", duplicate);
 
-both_end_HTML.addEventListener("click", duplicate);
-
-const vertical_HTML = document.querySelector('#vertical');
-
-vertical_HTML.addEventListener("click", duplicate);
+const both_ends_closed_vertical_HTML = document.querySelector('#both_ends_closed_vertical');
+both_ends_closed_vertical_HTML.addEventListener("click", duplicate);
 
 const top_pm_img_HTML = document.querySelector('#top_pm_img');
-
 top_pm_img_HTML.addEventListener('click', duplicate);
 
+const top_pm_HTML = document.querySelector('#top_pm');
+top_pm_HTML.addEventListener('click', duplicate);
+
+const top_left_line_HTML = document.querySelector('#top_left_line');
+top_left_line_HTML.addEventListener('click', duplicate);
+
+const main_line_HTML = document.querySelector('#main_line');
+main_line_HTML.addEventListener('click', duplicate);
 
 function makeResizableDiv(div) {
   const element = document.querySelector(div);
@@ -252,3 +268,7 @@ const deleteElement = e => {
 ;}
 
 delete_el_HTML.addEventListener('click', deleteElement)
+
+document.addEventListener('click', e => {
+  console.log(e.target);
+})
