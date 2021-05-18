@@ -50,7 +50,7 @@ body {
 .both_ends_div {
   height: 15px;
   width: 150px;
-  background-color: black;
+  background-color: aqua;
   resize: both;
   overflow: auto;
   margin: 5px 2px;
@@ -60,11 +60,9 @@ body {
 }
 
 .white_stripe {
-  background-color: aliceblue;
+  background-color: white;
   width: 10%;
   max-width: 10px;
-  /* display: flex;
-  flex: 1; */
   margin: 0;
 }
 
@@ -72,11 +70,39 @@ body {
   flex: 1;
 }
 
+/* ////////////////////////////////////// */
+
+.left_loaded {
+  width: 70px;
+  height: 70px;
+  background-color: aqua;
+  margin: 10px;
+  position: relative;
+}
+
+.top_left_loaded_stripe {
+  position: absolute;
+  top: 0px;
+  height: 40%;
+  left: 10px;
+  width: 100%;
+  background-color: rgb(171, 169, 169);
+}
+
+.bottom_left_loaded_stripe {
+  position: absolute;
+  bottom: 0px;
+  height: 40%;
+  left: 10px;
+  width: 100%;
+  background-color: rgb(171, 169, 169);
+}
+
 /* ///////////////////// */
 .both_ends {
   width: 70px;
   height: 20px;
-  background-color: black;
+  background-color: aqua;
   margin: 10px;
   position: relative;
 }
@@ -105,7 +131,7 @@ body {
 .left_end {
   width: 70px;
   height: 20px;
-  background-color: black;
+  background-color: aqua;
   margin: 10px;
   position: relative;
 }
@@ -124,7 +150,7 @@ body {
 .right_end {
   width: 70px;
   height: 20px;
-  background-color: black;
+  background-color: aqua;
   margin: 10px;
   position: relative;
 }
@@ -143,7 +169,7 @@ body {
 .both_ends_vertical {
   width: 20px;
   height: 70px;
-  background-color: black;
+  background-color: aqua;
   margin: 10px;
   position: relative;
 }
@@ -172,7 +198,7 @@ body {
 .both_ends_closed_vertical {
   width: 20px;
   height: 70px;
-  background-color: black;
+  background-color: aqua;
   margin: 10px;
   position: relative;
 }
@@ -184,7 +210,10 @@ body {
 }
 
 .top {
-  border-top: 3px solid yellow;
+  /* border-top: 3px solid yellow; */
+  border-width: 3px;
+  border-style: solid;
+  border-color: transparent;
   top: 0px;
   left: 0px;
   height: 0px;
@@ -194,7 +223,10 @@ body {
 }
 
 .right {
-  border-right: 3px solid yellow;
+  /* border-right: 3px solid yellow; */
+  border-width: 3px;
+  border-style: solid;
+  border-color: transparent;
   right: 0px;
   top: 0px;
   height: 100%;
@@ -204,7 +236,10 @@ body {
 }
 
 .bottom {
-  border-bottom: 3px solid yellow;
+  /* border-bottom: 3px solid yellow; */
+  border-width: 3px;
+  border-style: solid;
+  border-color: transparent;
   bottom: 0px;
   left: 0px;
   height: 0;
@@ -213,12 +248,19 @@ body {
 }
 
 .left {
-  border-left: 3px solid yellow;
+  /* border-left: 3px solid yellow; */
+  border-width: 3px;
+  border-style: solid;
+  border-color: transparent;
   top: 0px;
   left: 0px;
   height: 100%;
   width: 0px;
   cursor: col-resize;
+}
+
+.bgdup {
+  background-color: black;
 }
 
 /* /////////////////////////////////// */
@@ -234,24 +276,80 @@ body {
 
 
 /* ////////////////////////////////  */
-.top_pm {
+.top_left_pm {
   position: relative;
   width: 140px;
   height: 70px;
   margin: 20px;
 }
 
-.main_line {
+.top_left_main_line {
   border-bottom: 10px solid black;
 }
 
-.top_left_line {
+.top_left_diagnoal_line {
   height: 80%;
   width: 100%;
   background:linear-gradient(45deg,rgb(171, 169, 169) 47%,rgb(0, 0, 0) 50%,rgb(171, 169, 169) 52%);
 }
 
+/* /////////////////////////////////////////// */
+
+.top_right_pm {
+  position: relative;
+  width: 140px;
+  height: 70px;
+  margin: 20px;
+}
+
+.top_right_main_line {
+  border-bottom: 10px solid black;
+}
+
+.top_right_diagnoal_line {
+  height: 80%;
+  width: 100%;
+  background:linear-gradient(-45deg,rgb(171, 169, 169) 47%,rgb(0, 0, 0) 50%,rgb(171, 169, 169) 52%);
+}
+
 /* //////////////////////////////////////////////// */
+
+
+.bottom_left_pm {
+  position: relative;
+  width: 140px;
+  height: 70px;
+  margin: 20px;
+}
+
+.bottom_left_main_line {
+  border-bottom: 10px solid black;
+}
+
+.bottom_left_diagnoal_line {
+  height: 80%;
+  width: 100%;
+  background:linear-gradient(-45deg,rgb(171, 169, 169) 47%,rgb(0, 0, 0) 50%,rgb(171, 169, 169) 52%);
+}
+
+/* //////////////////////////////////////////// */
+
+.bottom_right_pm {
+  position: relative;
+  width: 140px;
+  height: 70px;
+  margin: 20px;
+}
+
+.bottom_right_main_line {
+  border-bottom: 10px solid black;
+}
+
+.bottom_right_diagnoal_line {
+  height: 80%;
+  width: 100%;
+  background:linear-gradient(45deg,rgb(171, 169, 169) 47%,rgb(0, 0, 0) 50%,rgb(171, 169, 169) 52%);
+}
 
 
 /*  */

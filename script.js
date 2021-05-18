@@ -44,8 +44,8 @@ function onDrop(event) {
 
   let userPostionX, userPostionY;
 
-  userPostionX = cursorX - diffX -12;
-  userPostionY = cursorY -  diffY  - 15;
+  userPostionX = cursorX - diffX - 12;
+  userPostionY = cursorY - diffY - 15;
   diffX = null;
   diffY = null;
 
@@ -62,46 +62,61 @@ function onDrop(event) {
     id: id,
     height: draggableElement.offsetHeight,
     width: draggableElement.offsetWidth,
-    name: 'unnamed'
-  })
+    name: "unnamed",
+  });
 }
 
 // document.getElementById("both_ends").style.resize = "both";
 
 let COUNTER_EL = 0;
 
-const prev_id_form_HTML = document.querySelector('#prev_id_form');
-const id_form_HTML = document.querySelector('#id_form');
-const name_form_HTML = document.querySelector('#name_form');
-const height_form_HTML = document.querySelector('#height_form');
-const width_form_HTML = document.querySelector('#width_form');
+const prev_id_form_HTML = document.querySelector("#prev_id_form");
+const id_form_HTML = document.querySelector("#id_form");
+const name_form_HTML = document.querySelector("#name_form");
+const height_form_HTML = document.querySelector("#height_form");
+const width_form_HTML = document.querySelector("#width_form");
 
 function properties(event) {
- let idSelected = event.target.id;
- if(!idSelected) {
-   return alert('click within the element');
- }
+  let idSelected = event.target.id;
+  if (!idSelected) {
+    return alert("click within the element");
+  }
 
- let filteredEl = ALL_ELEMENTS.filter(el => el.id === idSelected);
- if(filteredEl.length > 0) {
-   filteredEl = filteredEl[0]
- } else {
-  return alert('Error');
- }
+  let filteredEl = ALL_ELEMENTS.filter((el) => el.id === idSelected);
+  if (filteredEl.length > 0) {
+    filteredEl = filteredEl[0];
+  } else {
+    return alert("Error");
+  }
 
- prev_id_form_HTML.value = filteredEl.id;
- id_form_HTML.value = filteredEl.id;
- name_form_HTML.value = filteredEl.name;
- height_form_HTML.value = filteredEl.height;
- width_form_HTML.value = filteredEl.width;
-
+  prev_id_form_HTML.value = filteredEl.id;
+  id_form_HTML.value = filteredEl.id;
+  name_form_HTML.value = filteredEl.name;
+  height_form_HTML.value = filteredEl.height;
+  width_form_HTML.value = filteredEl.width;
 }
 
 function duplicate(event) {
   let original, dupId;
-  if(event.target.classList.contains('main_line') || event.target.classList.contains('top_left_line')) {
-      original = event.target.parentNode;
-      dupId = original.id;
+  let childClasses = [
+    "top_left_diagnoal_line",
+    "top_left_main_line",
+    "top_right_diagnoal_line",
+    "top_right_main_line",
+    "bottom_left_main_line",
+    "bottom_left_diagnoal_line",
+    "bottom_right_main_line",
+    "bottom_right_diagnoal_line",
+    "bottom_left_loaded_stripe",
+    "top_left_loaded_stripe",
+  ];
+  let status = false;
+
+  let childId = event.target.id;
+  if (childClasses.includes(childId)) {
+    original = event.target.parentNode;
+    dupId = original.id;
+    status = true;
   } else {
     dupId = event.target.id;
   }
@@ -117,119 +132,165 @@ function duplicate(event) {
   clone.setAttribute("ondblclick", "properties(event)");
   clone.removeAttribute("onclick");
   original.parentNode.appendChild(clone);
-  makeResizableDiv(`#${clone.id}`)
+  // console.log(clone.classList);
+  if(!status) {
+    clone.classList.toggle('bgdup');
+  }
+  makeResizableDiv(`#${clone.id}`);
 }
 
 const both_ends_div_HTML = document.querySelector("#both_ends_div");
 both_ends_div_HTML.addEventListener("click", duplicate);
 
-const left_end_HTML = document.querySelector('#left_end');
+const left_loaded_HTML = document.querySelector("#left_loaded");
+left_loaded_HTML.addEventListener("click", duplicate);
+const top_left_loaded_stripe_HTML = document.querySelector("#top_left_loaded_stripe");
+top_left_loaded_stripe_HTML.addEventListener("click", duplicate);
+const bottom_left_loaded_stripe_HTML = document.querySelector("#bottom_left_loaded_stripe");
+bottom_left_loaded_stripe_HTML.addEventListener("click", duplicate);
+
+const left_end_HTML = document.querySelector("#left_end");
 left_end_HTML.addEventListener("click", duplicate);
 
-const right_end_HTML = document.querySelector('#right_end');
+const right_end_HTML = document.querySelector("#right_end");
 right_end_HTML.addEventListener("click", duplicate);
 
-const both_ends_HTML = document.querySelector('#both_ends');
+const both_ends_HTML = document.querySelector("#both_ends");
 both_ends_HTML.addEventListener("click", duplicate);
 
-const both_ends_vertical_HTML = document.querySelector('#both_ends_vertical');
+const both_ends_vertical_HTML = document.querySelector("#both_ends_vertical");
 both_ends_vertical_HTML.addEventListener("click", duplicate);
 
-const both_ends_closed_vertical_HTML = document.querySelector('#both_ends_closed_vertical');
+const both_ends_closed_vertical_HTML = document.querySelector(
+  "#both_ends_closed_vertical"
+);
 both_ends_closed_vertical_HTML.addEventListener("click", duplicate);
 
-const top_pm_img_HTML = document.querySelector('#top_pm_img');
-top_pm_img_HTML.addEventListener('click', duplicate);
+const top_pm_img_HTML = document.querySelector("#top_pm_img");
+top_pm_img_HTML.addEventListener("click", duplicate);
 
-const top_pm_HTML = document.querySelector('#top_pm');
-top_pm_HTML.addEventListener('click', duplicate);
+const top_left_pm_HTML = document.querySelector("#top_left_pm");
+top_left_pm_HTML.addEventListener("click", duplicate);
+const top_left_diagnoal_line_HTML = document.querySelector(
+  "#top_left_diagnoal_line"
+);
+top_left_diagnoal_line_HTML.addEventListener("click", duplicate);
+const top_left_main_line_HTML = document.querySelector("#top_left_main_line");
+top_left_main_line_HTML.addEventListener("click", duplicate);
 
-const top_left_line_HTML = document.querySelector('#top_left_line');
-top_left_line_HTML.addEventListener('click', duplicate);
+const top_right_pm_HTML = document.querySelector("#top_right_pm");
+top_right_pm_HTML.addEventListener("click", duplicate);
+const top_right_diagnoal_line_HTML = document.querySelector(
+  "#top_right_diagnoal_line"
+);
+top_right_diagnoal_line_HTML.addEventListener("click", duplicate);
+const top_right_main_line_HTML = document.querySelector("#top_right_main_line");
+top_right_main_line_HTML.addEventListener("click", duplicate);
 
-const main_line_HTML = document.querySelector('#main_line');
-main_line_HTML.addEventListener('click', duplicate);
+const bottom_left_pm_HTML = document.querySelector("#bottom_left_pm");
+bottom_left_pm_HTML.addEventListener("click", duplicate);
+const bottom_left_main_line_HTML = document.querySelector(
+  "#bottom_left_main_line"
+);
+bottom_left_main_line_HTML.addEventListener("click", duplicate);
+const bottom_left_diagnoal_line_HTML = document.querySelector(
+  "#bottom_left_diagnoal_line"
+);
+bottom_left_diagnoal_line_HTML.addEventListener("click", duplicate);
+
+const bottom_right_pm_HTML = document.querySelector("#bottom_right_pm");
+bottom_right_pm_HTML.addEventListener("click", duplicate);
+const bottom_right_main_line_HTML = document.querySelector(
+  "#bottom_right_main_line"
+);
+bottom_right_main_line_HTML.addEventListener("click", duplicate);
+const bottom_right_diagnoal_line_HTML = document.querySelector(
+  "#bottom_right_diagnoal_line"
+);
+bottom_right_diagnoal_line_HTML.addEventListener("click", duplicate);
 
 function makeResizableDiv(div) {
   const element = document.querySelector(div);
-  const resizers = element.querySelectorAll('.resize_box')
-  for (let i = 0;i < resizers.length; i++) {
+  const resizers = element.querySelectorAll(".resize_box");
+  for (let i = 0; i < resizers.length; i++) {
     const currentResizer = resizers[i];
-    currentResizer.addEventListener('mousedown', function(e) {
-      e.preventDefault()
-      window.addEventListener('mousemove', resize)
-      window.addEventListener('mouseup', stopResize)
-    })
-    
+    currentResizer.addEventListener("mousedown", function (e) {
+      e.preventDefault();
+      window.addEventListener("mousemove", resize);
+      window.addEventListener("mouseup", stopResize);
+    });
+
     function resize(e) {
-      if (currentResizer.classList.contains('right')) {
-        element.style.width = e.pageX - element.getBoundingClientRect().left + 'px'
-      } else if (currentResizer.classList.contains('left')) {
-        element.style.width = element.getBoundingClientRect().right - e.pageX + 'px'
-      } else if (currentResizer.classList.contains('top')) {
-        element.style.height = (e.pageY) - element.getBoundingClientRect().top + 'px'
-      } else if (currentResizer.classList.contains('bottom')) {
+      if (currentResizer.classList.contains("right")) {
+        element.style.width =
+          e.pageX - element.getBoundingClientRect().left + "px";
+      } else if (currentResizer.classList.contains("left")) {
+        element.style.width =
+          element.getBoundingClientRect().right - e.pageX + "px";
+      } else if (currentResizer.classList.contains("top")) {
+        element.style.height =
+          e.pageY - element.getBoundingClientRect().top + "px";
+      } else if (currentResizer.classList.contains("bottom")) {
         // console.log(e.pageY);
         // console.log(element.getBoundingClientRect().bottom);
-        element.style.height = e.pageY - element.getBoundingClientRect().bottom + 'px'
+        element.style.height =
+          e.pageY - element.getBoundingClientRect().bottom + "px";
       } else {
         // nothing
       }
     }
-    
+
     function stopResize() {
-      window.removeEventListener('mousemove', resize)
+      window.removeEventListener("mousemove", resize);
     }
   }
 }
 
-
 // ///////////////////////////
 
-let get_result_HTML = document.querySelector('#get_result');
-let display_result_HTML = document.querySelector('#display_result');
+let get_result_HTML = document.querySelector("#get_result");
+let display_result_HTML = document.querySelector("#display_result");
 // let right_activity_container_HTML = document.querySelector('#right_activity_container');
 
 const getResult = () => {
-  let eachEl = '';
-  ALL_ELEMENTS.map(el => {
-    let eachInfo = '';
-    let row = '';
-    let id = el['id'];
+  let eachEl = "";
+  ALL_ELEMENTS.map((el) => {
+    let eachInfo = "";
+    let row = "";
+    let id = el["id"];
     let htmlEl = right_activity_container_HTML.querySelector(`#${id}`);
     el.height = htmlEl.offsetHeight;
     el.width = htmlEl.offsetWidth;
 
-    for(let info in el) {
+    for (let info in el) {
       row = `<div class="label">${info}</div>
       <div class="info"><strong>${el[info]}</strong></div>`;
       eachInfo += ` <div class="eachInfo">${row}</div>`;
     }
     eachEl += `<div class="eachEl">${eachInfo}</div>`;
-  })
+  });
 
   display_result_HTML.innerHTML = eachEl;
-}
+};
 
-get_result_HTML.addEventListener('click', getResult);
+get_result_HTML.addEventListener("click", getResult);
 
 // ////////////////////////////////////////////////////////////
 
+const update_el_HTML = document.querySelector("#update_el");
 
-const update_el_HTML = document.querySelector('#update_el');
-
-const updateEl = e => {
+const updateEl = (e) => {
   let pId = prev_id_form_HTML.value;
   let id = id_form_HTML.value;
   let name = name_form_HTML.value;
   let height = height_form_HTML.value;
   let width = width_form_HTML.value;
 
-  let filteredEl = ALL_ELEMENTS.filter(el => el.id === pId);
-  if(filteredEl.length > 0) {
-    filteredEl = filteredEl[0]
+  let filteredEl = ALL_ELEMENTS.filter((el) => el.id === pId);
+  if (filteredEl.length > 0) {
+    filteredEl = filteredEl[0];
   } else {
-   return alert('Error');
+    return alert("Error");
   }
 
   filteredEl.id = id;
@@ -241,34 +302,33 @@ const updateEl = e => {
   htmlEl.id = id;
   htmlEl.style.height = `${parseInt(height)}px`;
   htmlEl.style.width = `${parseInt(width)}px`;
-  
-  prev_id_form_HTML.value = '';
-  id_form_HTML.value = '';
-  name_form_HTML.value = '';
-  height_form_HTML.value = '';
-  width_form_HTML.value = '';
-}
 
-update_el_HTML.addEventListener('click', updateEl);
+  prev_id_form_HTML.value = "";
+  id_form_HTML.value = "";
+  name_form_HTML.value = "";
+  height_form_HTML.value = "";
+  width_form_HTML.value = "";
+};
 
+update_el_HTML.addEventListener("click", updateEl);
 
 // //////////////////////////////////////////////////////////////
 
-const delete_el_HTML = document.querySelector('#delete_el');
+const delete_el_HTML = document.querySelector("#delete_el");
 
-const deleteElement = e => {
+const deleteElement = (e) => {
   let elId = prev_id_form_HTML.value;
   console.log(elId);
   document.querySelector(`#${elId}`).remove();
-  prev_id_form_HTML.value = '';
-  id_form_HTML.value = '';
-  name_form_HTML.value = '';
-  height_form_HTML.value = '';
-  width_form_HTML.value = '';
-;}
+  prev_id_form_HTML.value = "";
+  id_form_HTML.value = "";
+  name_form_HTML.value = "";
+  height_form_HTML.value = "";
+  width_form_HTML.value = "";
+};
 
-delete_el_HTML.addEventListener('click', deleteElement)
+delete_el_HTML.addEventListener("click", deleteElement);
 
-document.addEventListener('click', e => {
-  console.log(e.target);
-})
+// document.addEventListener("click", (e) => {
+//   console.log(e.target);
+// });
